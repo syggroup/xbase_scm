@@ -1,0 +1,47 @@
+[
+	{
+		"path": "$ROOTPATH$\\scm.prg",
+		"bookmarks": [
+			{
+				"line": 51,
+				"column": 17,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "d:\\devel\\letodb\\source\\client\\letomgmn.c",
+		"bookmarks": [
+			{
+				"line": 277,
+				"column": 14,
+				"label": ""
+			},
+			{
+				"line": 332,
+				"column": 21,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "d:\\devel\\letodb\\source\\client\\letocl.c",
+		"bookmarks": [
+			{
+				"line": 3709,
+				"column": 25,
+				"label": ""
+			}
+		]
+	},
+	{
+		"path": "$ROOTPATH$\\rotina.prg",
+		"bookmarks": [
+			{
+				"line": 332,
+				"column": 15,
+				"label": ""
+			}
+		]
+	}
+]

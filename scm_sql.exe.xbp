@@ -1,0 +1,76 @@
+CINI =
+C_OUTPUTFOLDER =
+DEFFILE =
+INCLUDEFOLDERS = D:\Devel\xharbour_bcc7\contrib\sqlrdd\include;D:\Devel\syg_hwgui\include;
+LAUTORUN =
+LDEBUG = .F.
+LGUI = .T.
+LIBFOLDERS = D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5
+LMT = .F.
+LNOAUTOFWH = .F.
+LPRG_CLASSICDEBUG = .F.
+LPRG_DEBUG = .F.
+LUSEDLL = .F.
+MAPFILE =
+MYC_FLAGS =
+MYDEFINES = _XHBSQL_
+MYLINK_FLAGS =
+MYPRG_FLAGS =
+MYRC_FLAGS =
+MYSLY_FLAGS =
+OUTPUTFOLDER = obj7
+PRG_OUTPUTFOLDER =
+RC_OUTPUTFOLDER =
+RUNARGUMENTS =
+SLY_OUTPUTFOLDER =
+STARTIN =
+TARGETFOLDER =
+
+[source\scm.prg]
+MYC_FLAGS =
+MYDEFINES =
+MYPRG_FLAGS =
+
+[source\*.prg]
+MYC_FLAGS =
+MYDEFINES =
+MYPRG_FLAGS =
+
+[source\scm.rc]
+MYDEFINES = 
+MYRC_FLAGS = 
+
+[D:\Devel\syg_hwgui\lib\hwgui.lib]
+
+[D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5\SQL.lib]
+
+[D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5\libpq.lib]
+
+[D:\devel\xharbour_bcc7\contrib\sygecom.lib]
+
+[D:\Devel\xharbour_bcc7\lib\gdlib.lib]
+
+[D:\Devel\xharbour_bcc7\lib\libbgd.lib]
+
+[D:\Devel\xharbour_bcc7\lib\pdflib.lib]
+
+[D:\Devel\xharbour_bcc7\lib\hbmzip.lib]
+
+[D:\Devel\xharbour_bcc7\lib\hbzip.lib]
+
+[D:\Devel\xharbour_bcc7\lib\tipssl.lib]
+
+[D:\Devel\xharbour_bcc7\lib\ssleay32.lib]
+
+[D:\Devel\xharbour_bcc7\lib\libeay32.lib]
+
+[D:\Devel\xharbour_bcc7\lib\tip.lib]
+
+[D:\Devel\xharbour_bcc7\lib\codepage.lib]
+
+[D:\Devel\xharbour_bcc7\lib\libfi.lib]
+
+[D:\Devel\xharbour_bcc7\lib\png.lib]
+
+[D:\Devel\xharbour_bcc7\contrib\syg_pgsql\syg_pgsql.lib]
+
