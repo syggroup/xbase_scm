@@ -399,14 +399,14 @@ SetColorinFocus( .t. )
 ****FIM DOS SAYS***
 
 ****INICIO GETS****
-   @ 60,40   GET Ocodigo  VAR Wcodigo       PICTURE "99999"  COLOR 255          SIZE 50,22  STYLE WS_DISABLED
-   @ 160,40  GET Otipo    VAR Wtipo         COLOR 255                           SIZE 60,22  STYLE WS_DISABLED
-   @ 455,40  GET Odataemi VAR Wdataemi      PICTURE "@D"                        SIZE 80,22  STYLE WS_DISABLED
-   @ 590,40  GET Ohoraemi VAR Whoraemi      PICTURE "@T"                        SIZE 80,22  STYLE WS_DISABLED
-   @ 115,70  GET Onome    VAR Wnome         COLOR 255                           SIZE 300,22 STYLE WS_DISABLED
-   @ 460,70  GET Obanco   VAR Wbanco        COLOR 255                           SIZE 210,22 STYLE WS_DISABLED
-   @ 100,100 GET Ovltotal VAR Wvltotal      PICTURE "@e 999,999,999.99"         SIZE 100,22 STYLE WS_DISABLED
-   @ 350,100 GET Oparcela VAR Wparcela      PICTURE "999"                       SIZE 50,22  STYLE WS_DISABLED
+   @ 60,40   GET Ocodigo  VAR Wcodigo       PICTURE "99999"  COLOR 255          TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+   @ 160,40  GET Otipo    VAR Wtipo         COLOR 255                           TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
+   @ 455,40  GET Odataemi VAR Wdataemi      PICTURE "@D"                        TOOLTIP "Informar" SIZE 80,22  STYLE WS_DISABLED
+   @ 590,40  GET Ohoraemi VAR Whoraemi      PICTURE "@T"                        TOOLTIP "Informar" SIZE 80,22  STYLE WS_DISABLED
+   @ 115,70  GET Onome    VAR Wnome         COLOR 255                           TOOLTIP "Informar" SIZE 300,22 STYLE WS_DISABLED
+   @ 460,70  GET Obanco   VAR Wbanco        COLOR 255                           TOOLTIP "Informar" SIZE 210,22 STYLE WS_DISABLED
+   @ 100,100 GET Ovltotal VAR Wvltotal      PICTURE "@e 999,999,999.99"         TOOLTIP "Informar" SIZE 100,22 STYLE WS_DISABLED
+   @ 350,100 GET Oparcela VAR Wparcela      PICTURE "999"                       TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
 ****FIM GETS******* 
 
 ***INICIO DOS BOTOES***
@@ -622,16 +622,16 @@ COUNT FOR CODIGO=Wcodigo TO Wparcela
 @ 260,190 SAY LBLvlparcela                  CAPTION "Valor Da Parcela R$:"      SIZE 168,22
 @ 10,220  SAY LBLdescricao                  CAPTION "Descrição / Obs...:"       SIZE 168,22
 *********
-@ 60,40   GET Ocodigo  VAR Wcodigo          PICTURE "999999"  COLOR 255         SIZE 50,22  STYLE WS_DISABLED
-@ 160,40  GET Otipo    VAR Wtipo            COLOR 255                           SIZE 60,22  STYLE WS_DISABLED
-@ 330,40  GET Odataemi VAR Wdataemi         PICTURE "@D"                        SIZE 80,22  STYLE WS_DISABLED
-@ 460,40  GET Ohoraemi VAR Whoraemi         PICTURE "@T"                        SIZE 80,22  STYLE WS_DISABLED
-@ 115,70  GET Onome    VAR Wnome            COLOR 255                           SIZE 300,22 STYLE WS_DISABLED
-@ 115,100 GET Oparcela VAR Wparcela         PICTURE "999"                       SIZE 50,22  STYLE WS_DISABLED
-@ 130,130 GET Onumparc VAR Wnumparc         PICTURE "999"                       SIZE 50,22  STYLE WS_DISABLED
-@ 60,160  GET Obanco   VAR Wbanco           COLOR 255                           SIZE 210,22 STYLE WS_DISABLED
-@ 340,160 GET Oagencia VAR Wagencia         PICTURE "@R"                        SIZE 60,22  STYLE WS_DISABLED
-@ 440,160 GET Occ      VAR Wcc              PICTURE "@R"                        SIZE 60,22  STYLE WS_DISABLED
+@ 60,40   GET Ocodigo  VAR Wcodigo          PICTURE "999999"  COLOR 255         TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+@ 160,40  GET Otipo    VAR Wtipo            COLOR 255                           TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
+@ 330,40  GET Odataemi VAR Wdataemi         PICTURE "@D"                        TOOLTIP "Informar" SIZE 80,22  STYLE WS_DISABLED
+@ 460,40  GET Ohoraemi VAR Whoraemi         PICTURE "@T"                        TOOLTIP "Informar" SIZE 80,22  STYLE WS_DISABLED
+@ 115,70  GET Onome    VAR Wnome            COLOR 255                           TOOLTIP "Informar" SIZE 300,22 STYLE WS_DISABLED
+@ 115,100 GET Oparcela VAR Wparcela         PICTURE "999"                       TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+@ 130,130 GET Onumparc VAR Wnumparc         PICTURE "999"                       TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+@ 60,160  GET Obanco   VAR Wbanco           COLOR 255                           TOOLTIP "Informar" SIZE 210,22 STYLE WS_DISABLED
+@ 340,160 GET Oagencia VAR Wagencia         PICTURE "@R"                        TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
+@ 440,160 GET Occ      VAR Wcc              PICTURE "@R"                        TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
 
 IF TIPO_CAD="A" .OR. TIPO_CAD="C"
    @ 130,190 GET DATEPICKER Ovenc2 VAR Wvenc2                                   SIZE 100,22;
@@ -648,8 +648,8 @@ IF TIPO_CAD="A" .OR. TIPO_CAD="C"
    SIZE 100,32 ON CLICK {||Grava_Parc()} STYLE WS_TABSTOP
 ELSE
    @ 130,190 GET DATEPICKER Ovenc2 VAR Wvenc2                                   SIZE 100,22 STYLE WS_DISABLED
-   @ 380,190 GET Ovlparcela VAR Wvlparcela     PICTURE "@e 999,999.99"          SIZE 100,22 STYLE WS_DISABLED
-   @ 130,220 GET Odescricao VAR Wdescricao     PICTURE Replicate("X",50)        SIZE 450,22 STYLE WS_DISABLED
+   @ 380,190 GET Ovlparcela VAR Wvlparcela     PICTURE "@e 999,999.99"          TOOLTIP "Informar" SIZE 100,22 STYLE WS_DISABLED
+   @ 130,220 GET Odescricao VAR Wdescricao     PICTURE Replicate("X",50)        TOOLTIP "Informar" SIZE 450,22 STYLE WS_DISABLED
 
    @ 100,250 BUTTON btnOk CAPTION "&Excluir"   ;
    TOOLTIP "Excluir Parcela";
@@ -866,22 +866,22 @@ Wsituacao:="P"
 @ 260,250 SAY LBLvlpgto                     CAPTION "Valor do pagamento:"       SIZE 168,22
 
 **********GET's*********
-@ 60,40   GET Ocodigo    VAR Wcodigo          PICTURE "99999"  COLOR 255        SIZE 50,22  STYLE WS_DISABLED
-@ 160,40  GET Otipo      VAR Wtipo            COLOR 255                         SIZE 60,22  STYLE WS_DISABLED
-@ 330,40  GET Odataemi   VAR Wdataemi         PICTURE "@D"                      SIZE 80,22  STYLE WS_DISABLED
-@ 460,40  GET Ohoraemi   VAR Whoraemi         PICTURE "@T"                      SIZE 80,22  STYLE WS_DISABLED
-@ 115,70  GET Onome      VAR Wnome            COLOR 255                         SIZE 300,22 STYLE WS_DISABLED
-@ 100,100 GET Ovltotal   VAR Wvltotal         PICTURE "@e 999,999,999.99"       SIZE 100,22 STYLE WS_DISABLED
-@ 400,100 GET Oparcela   VAR Wparcela         PICTURE "999"                     SIZE 50,22  STYLE WS_DISABLED
-@ 130,130 GET Onumparc   VAR Wnumparc         PICTURE "999"                     SIZE 50,22  STYLE WS_DISABLED
-@ 130,160 GET DATEPICKER Ovenc2 VAR Wvenc2                                      SIZE 100,22 STYLE WS_DISABLED
-@ 380,160 GET Ovlparcela VAR Wvlparcela       PICTURE "@e 999,999.99"           SIZE 100,22 STYLE WS_DISABLED
-@ 60,190  GET Obanco   VAR Wbanco           COLOR 255                           SIZE 210,22 STYLE WS_DISABLED
-@ 340,190 GET Oagencia VAR Wagencia         PICTURE "@R"                        SIZE 60,22  STYLE WS_DISABLED
-@ 440,190 GET Occ      VAR Wcc              PICTURE "@R"                        SIZE 60,22  STYLE WS_DISABLED
-@ 130,220 GET Odescricao VAR Wdescricao       PICTURE Replicate("X",50)         SIZE 450,22 
-@ 130,250 GET DATEPICKER Odtpagto   VAR Wdtpgto                                 SIZE 100,22
-@ 380,250 GET Ovlpgto    VAR Wvlpgto          PICTURE "@e 999,999.99"           SIZE 100,22
+@ 60,40   GET Ocodigo    VAR Wcodigo          PICTURE "99999"  COLOR 255        TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+@ 160,40  GET Otipo      VAR Wtipo            COLOR 255                         TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
+@ 330,40  GET Odataemi   VAR Wdataemi         PICTURE "@D"                      TOOLTIP "Informar" SIZE 80,22  STYLE WS_DISABLED
+@ 460,40  GET Ohoraemi   VAR Whoraemi         PICTURE "@T"                      TOOLTIP "Informar" SIZE 80,22  STYLE WS_DISABLED
+@ 115,70  GET Onome      VAR Wnome            COLOR 255                         TOOLTIP "Informar" SIZE 300,22 STYLE WS_DISABLED
+@ 100,100 GET Ovltotal   VAR Wvltotal         PICTURE "@e 999,999,999.99"       TOOLTIP "Informar" SIZE 100,22 STYLE WS_DISABLED
+@ 400,100 GET Oparcela   VAR Wparcela         PICTURE "999"                     TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+@ 130,130 GET Onumparc   VAR Wnumparc         PICTURE "999"                     TOOLTIP "Informar" SIZE 50,22  STYLE WS_DISABLED
+@ 130,160 GET DATEPICKER Ovenc2 VAR Wvenc2                                      TOOLTIP "Informar" SIZE 100,22 STYLE WS_DISABLED
+@ 380,160 GET Ovlparcela VAR Wvlparcela       PICTURE "@e 999,999.99"           TOOLTIP "Informar" SIZE 100,22 STYLE WS_DISABLED
+@ 60,190  GET Obanco   VAR Wbanco           COLOR 255                           TOOLTIP "Informar" SIZE 210,22 STYLE WS_DISABLED
+@ 340,190 GET Oagencia VAR Wagencia         PICTURE "@R"                        TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
+@ 440,190 GET Occ      VAR Wcc              PICTURE "@R"                        TOOLTIP "Informar" SIZE 60,22  STYLE WS_DISABLED
+@ 130,220 GET Odescricao VAR Wdescricao       PICTURE Replicate("X",50)         TOOLTIP "Informar" SIZE 450,22 
+@ 130,250 GET DATEPICKER Odtpagto   VAR Wdtpgto                                 TOOLTIP "Informar" SIZE 100,22
+@ 380,250 GET Ovlpgto    VAR Wvlpgto          PICTURE "@e 999,999.99"           TOOLTIP "Informar" SIZE 100,22
 
 @ 100,280 BUTTON btnOk CAPTION "&Receber"   ;
 TOOLTIP "Receber Parcela";

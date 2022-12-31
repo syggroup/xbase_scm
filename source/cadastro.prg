@@ -582,7 +582,7 @@ IF wTIPOJF="J"
    ENDIF
 ELSE
    FCPF=wCNPJ_CPF
-   IF CPF()=.F.
+   IF CPF(FCPF)=.F.
       IF MsgYesNo("Deseja Alterar o CPF agora ?","Aviso do Sistema")
          OCNPJ_CPF:setfocus()
          Return

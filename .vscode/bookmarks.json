@@ -54,6 +54,16 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "source/scm.prg",
+			"bookmarks": [
+				{
+					"line": 126,
+					"column": 13,
+					"label": ""
+				}
+			]
 		}
 	]
 }

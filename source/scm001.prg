@@ -199,7 +199,7 @@ cMEU_SQL="PGS="+oOBJ:oHOST:VARGET()+";UID="+oOBJ:oUSUARIO:VARGET()+";PWD="+oOBJ:
 nCnn := SR_AddConnection(CONNECT_POSTGRES, cMEU_SQL)
 
 IF nCnn < 0
-   MY_ShowMsg("Não Conectou ao Banco de Dados," + HB_OsNewLine() + ;
+   HWG_MsgInfo("Não Conectou ao Banco de Dados," + HB_OsNewLine() + ;
            "Favor revisar sua conexão com a REDE ou Tente reiniciar o servidor de banco de dados",15)
 ELSE
    IF oOBJ:oTIPO_SQL:VARGET()="POSTGRESQL"
@@ -214,7 +214,7 @@ ELSE
 
          lRET:=.T.
       ELSE
-         SHOWMSG('Atenção !!! Desculpa, mas o Sistema não tem mais suporte para a versão menor que 9.1 do Gerenciador de Banco de dados( POSTGRESQL ).'+ HB_OsNewLine()+;
+         HWG_MsgInfo('Atenção !!! Desculpa, mas o Sistema não tem mais suporte para a versão menor que 9.1 do Gerenciador de Banco de dados( POSTGRESQL ).'+ HB_OsNewLine()+;
                  'Entre em contato agora mesmo com o Suporte da Sygecom para lhe auxiliar nessa atualização do banco de dados'               + HB_OsNewLine()+;
                  ''                                                                                                                          + HB_OsNewLine()+;
                  'Email: suporte@sygecom.com.br')
@@ -228,9 +228,9 @@ SR_End()
 sygDialogo()
 
 IF lRET
-   ShowMsg('Conectado com Sucesso')
+   HWG_MsgInfo('Conectado com Sucesso')
 ELSE
-   ShowMsg('Erro na conexão, Favor revisar os dados informados')
+   HWG_MsgInfo('Erro na conexão, Favor revisar os dados informados')
 ENDIF
 
 RETURN(.T.)

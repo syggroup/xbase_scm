@@ -210,5 +210,3 @@ function createMenuPopup(obj,wnd,arr)
  activate popup m_menu at m_row,0 of obj
 return nil
 
-function MY_SHOWMSG()
-return nil

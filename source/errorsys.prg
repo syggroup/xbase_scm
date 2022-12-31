@@ -14,13 +14,13 @@ STATIC LogInitialPath := ""  //Curdrive()+ ":\" + rtrim(curdir())+ "\erros\"
 
 PROCEDURE ErrorSys
 
-   ErrorBlock( { | oError | DefError( oError ) } )
+   ErrorBlock( { | oError | SYG_DefError( oError ) } )
 
    //LogInitialPath := SubStr( hb_argv(0), 1, LEN(hb_argv(0))- LEN(substr(hb_argv(0), RAT("\", hb_argv(0))+1)) )
 
    RETURN
 
-STATIC FUNCTION DefError( oError )
+FUNCTION SYG_DefError( oError )
    LOCAL cMessage
    LOCAL cDOSError
 

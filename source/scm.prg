@@ -281,7 +281,7 @@ SIZE oBmpLogo11:nWidth, oBmpLogo11:nHeight
 vPosicao=0
 
 @ vPosicao,2 OWNERBUTTON OF oPanel;
-ON CLICK {|| Cad_Associado("C","S") } ;
+ON CLICK {|| Pesquisa_Associado() } ;
 SIZE 36,36 ;
 FLAT;
 BITMAP oBmpLogo9 FROM RESOURCE TRANSPARENT;
@@ -574,14 +574,6 @@ FUNCTION RunApplet_imp( cApplet ) //CONFIGURA IMPRESSORA NO WINDOWS
 RETURN Nil
 ********************************************************************************
 
-/*
-func IMPRIME_DANF
-return .t.
-*/
-function MY_SHOWMSG()
-
-return nil
 
 
-function SYG_TRANSLATOR(c1)
-return(c1)   
+
