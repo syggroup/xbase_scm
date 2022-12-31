@@ -442,6 +442,15 @@ public eSENHA_SQL:=HB_Decrypt( vREG2, eKEY )
 
    AJUSTA_CONEXAO_SQLRDD()
 
+   SR_UseDeleteds( .F. )           // NÃO MANTER REGISTROS DELETADOS NAS TABELAS
+   SR_SetFastOpen(.T.)             // ABRE AS TABELAS EM MODO COMPARTILHADO
+   SR_SetGoTopOnScope(.T.)         // NÃO EXECUTA O DBGOTOP() AUTOMATICO NOS ORDSCOPE
+   SR_MaxRowCache( 10 )            // Quantidade máxima de linhas matidas em cache em tabelas do SQLRDD. O Default é 1000.
+   SR_SetBaseLang( 2 )             // linguagem portugues
+   SR_Msg(2)                       // portugues
+   SR_SETSYNTHETICINDEX(.F.)       // vale o que for configurado pela função SR_SetSyntheticIndexMinimun().
+   SR_SETSYNTHETICINDEXMINIMUN(10) // Quantidade mínima de colunas na chave de índice para criá-lo como Sintético. Os valores aceitos são entre 0 e 10.
+   SETPGSOLDBEHAVIOR(.T.)          // CONSIDERAR CAMPOS NULL COMO VAZIO
 
    /*
    cAtributes := "dsn=pgs95;Server="+eHost+";Database="+eDATABASE+";Uid="+eUSUARIO_SQL+";Pwd="+eSENHA_SQL+";" //+";BoolsAsChar=0;"
@@ -475,7 +484,7 @@ public eSENHA_SQL:=HB_Decrypt( vREG2, eKEY )
    nCnn := SR_AddConnection(CONNECT_POSTGRES, vMEU_SQL)
    If nCnn < 0
       Fim_Run()
-      MsgInfo("Não Conectou ao Banco de Dados, Favor revisar","Aviso do Sistema")
+      MsgInfo("Não Conectou ao Banco de Dados("+eDATABASE+"), Favor revisar","Aviso do Sistema")
       IF vHAB=.F.
          SAIR2()
       ENDIF
@@ -587,8 +596,9 @@ ESSA FUNÇÃO É USADA PARA FAZER A CONEXÃO COM O BANCO DE DADOS NO POSTGRESQL COM 
          "9.6" $ cSystemVers .or. ;
          "10." $ cSystemVers .or. ;
          "11." $ cSystemVers .or. ;
-         "12." $ cSystemVers)
-
+         "12." $ cSystemVers .or. ;
+         "13." $ cSystemVers)
+         
       ::End()
       ::nRetCode  := SQL_ERROR
       ::nSystemID := NIL

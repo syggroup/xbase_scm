@@ -1,7 +1,7 @@
 CINI =
 C_OUTPUTFOLDER =
 DEFFILE =
-INCLUDEFOLDERS = D:\Devel\xharbour_bcc7\contrib\sqlrdd\include;D:\Devel\syg_hwgui\include;
+INCLUDEFOLDERS = D:\Devel\xharbour_bcc7\contrib\sqlrdd\include;D:\Devel\hwgui\include;
 LAUTORUN =
 LDEBUG = .F.
 LGUI = .T.
@@ -40,7 +40,7 @@ MYPRG_FLAGS =
 MYDEFINES = 
 MYRC_FLAGS = 
 
-[D:\Devel\syg_hwgui\lib\hwgui.lib]
+[D:\Devel\hwgui\lib\hwgui_xhb72.lib]
 
 [D:\Devel\xharbour_bcc7\contrib\sqlrdd\lib\BC5\SQL.lib]
 
@@ -72,5 +72,5 @@ MYRC_FLAGS =
 
 [D:\Devel\xharbour_bcc7\lib\png.lib]
 
-[D:\Devel\xharbour_bcc7\contrib\syg_pgsql\syg_pgsql.lib]
+[D:\devel\xharbour_bcc7\lib\syg_pgsql.lib]
 

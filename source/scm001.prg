@@ -99,10 +99,17 @@ TOOLTIP 'Informe a senha do usuario'
 STYLE ES_AUTOHSCROLL MAXLENGTH 15;
 TOOLTIP 'Informe o Ecoding ou Charset de conexão'
 
+@ 10,235 BUTTONEX oButton1 CAPTION "&Testar Conexão" SIZE 150, 38 ;
+BITMAP (HBitmap():AddResource(1006)):handle  ;
+BSTYLE 0;
+TOOLTIP "clique aqui para testar a conexão com o banco de dados";
+ON CLICK {||  TESTA_CONEXAO(oJanela) };
+STYLE WS_TABSTOP
+
 @ 385,235 BUTTONEX oButton1 CAPTION "&Salvar" SIZE 100, 38 ;
 BITMAP (HBitmap():AddResource(1006)):handle  ;
 BSTYLE 0;
-TOOLTIP "Salvar a seleção de Impressora de Cheque";
+TOOLTIP "Salvar dados da conexão";
 ON CLICK {||  Salva_dados_sql() };
 STYLE WS_TABSTOP
 
@@ -180,3 +187,50 @@ ENDIF
 oPORTA:SetText( vPORTA )
 oPORTA:Refresh()
 Return(.T.)
+
+*****************************
+STATIC FUNCTION TESTA_CONEXAO(oOBJ)
+*****************************
+LOCAL cMEU_SQL, nCnn, lRET:=.F.
+
+AJUSTA_CONEXAO_SQLRDD()
+
+cMEU_SQL="PGS="+oOBJ:oHOST:VARGET()+";UID="+oOBJ:oUSUARIO:VARGET()+";PWD="+oOBJ:oSENHA:VARGET()+";DTB="+oOBJ:oDATABASE:VARGET()+";PRT="+oOBJ:oPORTA:VARGET()
+nCnn := SR_AddConnection(CONNECT_POSTGRES, cMEU_SQL)
+
+IF nCnn < 0
+   MY_ShowMsg("Não Conectou ao Banco de Dados," + HB_OsNewLine() + ;
+           "Favor revisar sua conexão com a REDE ou Tente reiniciar o servidor de banco de dados",15)
+ELSE
+   IF oOBJ:oTIPO_SQL:VARGET()="POSTGRESQL"
+      IF "9.0" $ (SR_GetConnection():cSystemVers) .OR.; // precisa da FUNCTION LEFT()
+         "9.1" $ (SR_GetConnection():cSystemVers) .OR.;
+         "9.2" $ (SR_GetConnection():cSystemVers) .OR.;
+         "9.3" $ (SR_GetConnection():cSystemVers) .OR.;
+         "9.5" $ (SR_GetConnection():cSystemVers) .OR.;
+         "9.6" $ (SR_GetConnection():cSystemVers) .OR.;
+         "10." $ (SR_GetConnection():cSystemVers) .OR.; 
+         "13." $ (SR_GetConnection():cSystemVers)
+
+         lRET:=.T.
+      ELSE
+         SHOWMSG('Atenção !!! Desculpa, mas o Sistema não tem mais suporte para a versão menor que 9.1 do Gerenciador de Banco de dados( POSTGRESQL ).'+ HB_OsNewLine()+;
+                 'Entre em contato agora mesmo com o Suporte da Sygecom para lhe auxiliar nessa atualização do banco de dados'               + HB_OsNewLine()+;
+                 ''                                                                                                                          + HB_OsNewLine()+;
+                 'Email: suporte@sygecom.com.br')
+      ENDIF
+   ELSE
+      lRET:=.T.
+   ENDIF
+ENDIF
+SR_End()
+
+sygDialogo()
+
+IF lRET
+   ShowMsg('Conectado com Sucesso')
+ELSE
+   ShowMsg('Erro na conexão, Favor revisar os dados informados')
+ENDIF
+
+RETURN(.T.)
