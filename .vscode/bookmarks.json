@@ -59,8 +59,28 @@
 			"path": "source/scm.prg",
 			"bookmarks": [
 				{
+					"line": 66,
+					"column": 13,
+					"label": ""
+				},
+				{
 					"line": 126,
 					"column": 13,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "source/rotina.prg",
+			"bookmarks": [
+				{
+					"line": 3,
+					"column": 0,
+					"label": ""
+				},
+				{
+					"line": 1305,
+					"column": 0,
 					"label": ""
 				}
 			]
