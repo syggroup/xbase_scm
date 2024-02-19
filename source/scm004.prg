@@ -113,9 +113,6 @@ IF Inetestaconectada()=.T.
    if !FILE("ie32.dll")
       Donwload_File("/atualiza/bin","ie32.dll","ie32.dll")
    endif
-   if !FILE("blat.dll")
-      Donwload_File("/atualiza/bin","blat.dll","blat.dll")
-   endif
    if !My_File("comerr32.dll")
       Donwload_File("/atualiza/bin","comerr32.dll","comerr32.dll")
    endif

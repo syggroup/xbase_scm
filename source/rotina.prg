@@ -612,12 +612,6 @@ MSGINFO("OBRIGATORIO !!! Preencher este campo ou (ESC) para sair","Aviso do Sist
 RETURN
 
 ***************
-Function AVISO2
-***************
-Msginfo("O Sistema Não Achou o Banco de Indice e Vai Indexar !!!","Aviso do Sistema")
-RETURN
-
-***************
 Function OBRIGA5
 ***************
 Msginfo("ATENÇÃO !!! O Sistema não esta Atualizado !!!, Por Favor Tente Novamente","Aviso do Sistema")

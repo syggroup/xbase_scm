@@ -74,13 +74,8 @@
 			"path": "source/rotina.prg",
 			"bookmarks": [
 				{
-					"line": 3,
-					"column": 0,
-					"label": ""
-				},
-				{
-					"line": 1305,
-					"column": 0,
+					"line": 211,
+					"column": 25,
 					"label": ""
 				}
 			]
@@ -91,6 +86,16 @@
 				{
 					"line": 1253,
 					"column": 36,
+					"label": ""
+				}
+			]
+		},
+		{
+			"path": "../../devel/hwgui_hb/samples/all/a.prg",
+			"bookmarks": [
+				{
+					"line": 41,
+					"column": 70,
 					"label": ""
 				}
 			]

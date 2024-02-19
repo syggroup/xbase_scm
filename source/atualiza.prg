@@ -13,7 +13,7 @@ IF IsDirectory( GETENV("temp") + "\sy_temp" )=.F.
    Makedir( GETENV("temp") + "\sy_temp")
 ENDIF
 
-IF !My_File("ie32.dll") .or. !My_File("blat.dll")
+IF !My_File("ie32.dll")
    IF MsgYesNo("Estão Faltando Arquivos para Iniciar o Sistema, Deseja Baixar as Dependencias Agora ?","Aviso do Sistema")
       DBCLOSEALL()
       fclose(janela2)
@@ -26,22 +26,7 @@ IF !My_File("ie32.dll") .or. !My_File("blat.dll")
       Erro_Atualizando()
    ENDIF
 ENDIF
-/*
-IF !MY_FILE("TESTE.DBF")
-   DBCreate( eCAMINHO_DADOS+"TESTE", {;
-   { "CAMPOC",  "C",30, 0 },;
-   { "CAMPON1", "N", 9, 0 },;
-   { "CAMPON2", "N",12, 2 },;
-   { "CAMPOD",  "D", 8, 0 },;
-   { "CAMPOL",  "L", 1, 0 },;
-   { "CAMPOM",  "M",10, 0 },;
-   { "CAMPOC_NOME_LONGO_",'C',255, 0 },;
-   { "CAMPOC_NOME_SUPER_LONGO_",'C',1000, 0 },;
-   { "CAMPON_VARIOS_DECIMAL", "N",29, 9 } } )
-      DBCLOSEALL()
-   vINDEXA="S"
-ENDIF
-*/
+
 IF !MY_FILE("INSTITUI.DBF")
    IF !MsgYESNO("Atenção !!! Para Continuar com essa Atualização Ninguem Pode esta Usando o Sistema...(Criação da Tabela Instituição).......Deseja Continuar ?...","Aviso do Sistema")
       DBCLOSEALL()
@@ -211,15 +196,15 @@ IF !MY_FILE("MENSAL.DBF")
       aField[13] := {"DESCRICAO", "C", 50,  0}
       aField[14] := {"TIPO"     , "C",  6,  0}
       aField[15] := {"SITUACAO" , "C",  1,  0}
-  				aField[16] := {"BANCO"    , "C", 40,  0}
-  				aField[17] := {"AGENCIA"  , "C", 15,  0}
-  				aField[18] := {"CC"       , "C", 15,  0}
+      aField[16] := {"BANCO"    , "C", 40,  0}
+      aField[17] := {"AGENCIA"  , "C", 15,  0}
+      aField[18] := {"CC"       , "C", 15,  0}
       aField[19] := {"OBS2"     , "C", 50,  0}
       aField[20] := {"OBS3"     , "C", 50,  0}
       aField[21] := {"MULTA"    , "N",  6,  2}
       aField[22] := {"MORA"     , "N",  6,  2}
       aField[23] := {"NOSSO_NUM", "N", 20,  0}
-  				DBcreate(eCAMINHO_DADOS+"MENSAL", aField)
+		DBcreate(eCAMINHO_DADOS+"MENSAL", aField)
 
       DBCLOSEALL()
       vINDEXA="S"
@@ -228,7 +213,7 @@ ENDIF
 
 IF eTipo_banco="DBF"
    IF !MY_FILE("*.CDX")
-      aviso2()
+      Msginfo("O Sistema Não Achou o Banco de Indice e Vai Indexar !!!","Aviso do Sistema")
       vINDEXA="S"
    ENDIF
 ENDIF

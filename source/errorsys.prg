@@ -20,9 +20,9 @@ STATIC LogInitialPath := ""  //Curdrive()+ ":\" + rtrim(curdir())+ "\erros\"
    RETURN
 #else
 
-PROCEDURE ErrorSys
+   PROCEDURE ErrorSys
 
-   ErrorBlock( { | oError | SYG_DefError( oError ) } )
+      ErrorBlock( { | oError | SYG_DefError( oError ) } )
 
    RETURN
 #endif
@@ -167,7 +167,7 @@ FUNCTION hwg_WriteLog( cText, fname )
 
    RETURN nil
 
-STATIC FUNCTION ErrorPreview( cMess, cArq )
+STATIC FUNCTION ErrorPreview( cMess )
    LOCAL oDlg, oEdit
 
    INIT DIALOG oDlg TITLE "Erro No Sistema SCM Vs. " + GETFILEVERSIONINFO() ;
@@ -181,7 +181,7 @@ STATIC FUNCTION ErrorPreview( cMess, cArq )
    FONT HFont():Add( '',0,-11,400,,,);
    ON GETFOCUS { || SendMessage( oEdit:handle, EM_SETSEL, 0, 0 ) }
    
-   @ 390,420 BUTTONEX "&Fechar" ON CLICK { || EndDialog_err() } SIZE 100, 38 ;
+   @ 390,420 BUTTONEX "&Fechar" ON CLICK { || SAIR2() } SIZE 100, 38 ;
    BITMAP (HBitmap():AddResource(1005)):handle  ;
    TOOLTIP 'Clique aqui para Fechar';
    STYLE WS_TABSTOP
@@ -189,10 +189,3 @@ STATIC FUNCTION ErrorPreview( cMess, cArq )
    oDlg:Activate()
 RETURN Nil
 
-*****************************
-Static Function EndDialog_err
-*****************************
-SAIR2()
-PostQuitMessage( 0 )
-__quit()
-RETURN Nil
