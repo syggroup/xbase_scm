@@ -501,7 +501,7 @@ STYLE SS_CENTER COLOR x_BLUE
 
 oBrw:Refresh()
 oBrw:SetFocus()
-oBrw:setfocus(obrw)
+oBrw:setfocus()
 
 oFrm:bActivate := {||oBrw:SetFocus(),Atual_filtro()}
 

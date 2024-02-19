@@ -69,7 +69,7 @@ STYLE SS_CENTER COLOR x_BLUE
 
 oBrw:Refresh()
 oBrw:SetFocus()
-oBrw:setfocus(obrw)
+oBrw:setfocus()
 
 OCadsetor:bActivate := {||oBrw:SetFocus(),oBrw:Refresh()}
 
