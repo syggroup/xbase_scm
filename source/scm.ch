@@ -18,7 +18,8 @@
 
 #IfnDef __XHARBOUR__
    #include "hbcompat.ch"
-   //#xtranslate curdrive()  => hb_curdrive()
+   #include "hwgcompat.ch"
+   
 REQUEST HB_GT_GUI_DEFAULT
 #endif
 

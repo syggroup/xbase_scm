@@ -157,7 +157,7 @@ ENDIF
 @ 10,40 BROWSE oBrw DATABASE OF oFrm SIZE HWG_GETDESKTOPWIDTH()-30, HWG_GETDESKTOPHEIGHT()-200 ;
         STYLE  WS_VSCROLL + WS_HSCROLL;
         FONT HFont():Add( '',0,-12,400,,,);
-        ON POSCHANGE {|| SetFocus(oBrw:handle ) }
+        ON POSCHANGE {|| oBrw:SetFocus() }
 
 oBrw:alias := ALIAS()
 
@@ -180,7 +180,7 @@ NEXT
 
 oBrw:Refresh()
 oBrw:SetFocus()
-setfocus(obrw)
+oBrw:setfocus()
 
 ACTIVATE DIALOG oFrm //Show SW_SHOWMAXIMIZED
 
@@ -290,7 +290,7 @@ ELSE
    IF eTipo_banco="DBF"
       Set filter to &lcbusca
    ELSE
-      #ifdef _XHBCOM_
+      #ifdef _XHBSQL_
       Sr_Setfilter(lcbusca)
       #endif
    ENDIF
@@ -301,7 +301,7 @@ Return
 *******************
 Function My_Refresh
 *******************
-#ifdef _XHBCOM_
+#ifdef _XHBSQL_
 SR_dbRefresh()
 #endif
 oBrw:Bottom()
@@ -319,7 +319,7 @@ LIBERAREG()
 
 oBrw:Refresh()
 oBrw:SetFocus()
-setfocus(obrw)
+oBrw:setfocus()
 Return
 
 **********************
@@ -337,7 +337,7 @@ IF EOF()
 ELSE
    IF !Deleted()
       IF MsgYesNo("Deseja Realmente Excluir esse Registro ?" ,"Aviso do Sistema")
-         #ifdef _XHBCOM_
+         #ifdef _XHBSQL_
          SR_begintransaction()
          #endif
          DBGOTO(vREG)
@@ -345,13 +345,13 @@ ELSE
          DELE
          DBCOMMIT()
          LIBERAREG()
-         #ifdef _XHBCOM_
+         #ifdef _XHBSQL_
          SR_EndTransaction()
          #endif
       ENDIF
    ELSE
       IF MsgYesNo("Deseja Realmente Retornar esse Registro ?" ,"Aviso do Sistema")
-         #ifdef _XHBCOM_
+         #ifdef _XHBSQL_
          SR_begintransaction()
          #endif
          DBGOTO(vREG)
@@ -359,7 +359,7 @@ ELSE
          DbRecall()
          DBCOMMIT()
          LIBERAREG()
-         #ifdef _XHBCOM_
+         #ifdef _XHBSQL_
          SR_EndTransaction()
          #endif
       ENDIF
@@ -367,6 +367,7 @@ ELSE
 ENDIF
 Return .T.
 
+#IfDef __XHARBOUR__
 ************************************************
 FUNCTION MY_MSGGET( cTitle, cText, vINI ,cMask )
 ************************************************
@@ -408,6 +409,7 @@ FUNCTION MY_MSGGET( cTitle, cText, vINI ,cMask )
    oDlg:Activate()
 
 RETURN(cRes)
+#endif
 
 **************************************************************************************************
 FUNCTION MY_WChoice( arr, cTitle, nLeft, nTop, oFont, clrT, clrB, clrTSel, clrBSel, cOk, cCancel )

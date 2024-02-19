@@ -295,7 +295,7 @@ PREPARE FONT oFontBtn NAME "Arial" WIDTH 0 HEIGHT -12 WEIGHT 400
         STYLE  WS_VSCROLL + WS_HSCROLL;
         MULTISELECT;
         ON CLICK {|o,key| Cad_Associado("A"),DbSetOrder(2),oBrw:SetFocus(),oBrw:Refresh() };
-        ON POSCHANGE {|| SetFocus(oBrw:handle ) }
+        ON POSCHANGE {|| oBrw:SetFocus() }
 
 oBrw:alias := aLIAS()
 

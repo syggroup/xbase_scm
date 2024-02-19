@@ -12,13 +12,20 @@
 
 STATIC LogInitialPath := ""  //Curdrive()+ ":\" + rtrim(curdir())+ "\erros\"
 
+#IfnDef __XHARBOUR__
+   PROCEDURE hwg_ErrSys
+      
+      ErrorBlock( { | oError | SYG_DefError( oError ) } )
+
+   RETURN
+#else
+
 PROCEDURE ErrorSys
 
    ErrorBlock( { | oError | SYG_DefError( oError ) } )
 
-   //LogInitialPath := SubStr( hb_argv(0), 1, LEN(hb_argv(0))- LEN(substr(hb_argv(0), RAT("\", hb_argv(0))+1)) )
-
    RETURN
+#endif
 
 FUNCTION SYG_DefError( oError )
    LOCAL cMessage
@@ -173,11 +180,6 @@ STATIC FUNCTION ErrorPreview( cMess, cArq )
    COLOR 255 ;
    FONT HFont():Add( '',0,-11,400,,,);
    ON GETFOCUS { || SendMessage( oEdit:handle, EM_SETSEL, 0, 0 ) }
-
-   @ 10,420 BUTTONEX "&Enviar Erro para Sygecom" ON CLICK { || Envia_erro(cArq),EndDialog() } SIZE 200, 38 ;
-   BITMAP (HBitmap():AddResource(1006)):handle  ;
-   TOOLTIP 'Clique aqui para Enviar o Erro para Sygecom';
-   STYLE WS_TABSTOP
    
    @ 390,420 BUTTONEX "&Fechar" ON CLICK { || EndDialog_err() } SIZE 100, 38 ;
    BITMAP (HBitmap():AddResource(1005)):handle  ;
@@ -185,28 +187,6 @@ STATIC FUNCTION ErrorPreview( cMess, cArq )
    STYLE WS_TABSTOP
    
    oDlg:Activate()
-RETURN Nil
-
-**********************************
-Static Function ENVIA_ERRO(aARQUI)
-**********************************
-IF inetestaconectada()=.T.
-   PRIVATE oDlgHabla:=NIL
-   MsgRun("Aguarde enviando o Erro para Sygecom.")
-
-   aFiles:={aARQUI}
-   GeraFile()
-   Monta_DBF_Email(cFILE, "smtp.sygecom.com.br", 25, "erros@sygecom.com.br", "erros@sygecom.com.br", "", " Erro do sistema: " + alltrim(xEmp), "Erro do Sistema SCM Vs. " + GETFILEVERSIONINFO(), "erros@sygecom.com.br", ePASS_EMAIL, aFiles, "", .F.,.T.)
-   MyRun("envia_email " + cFILE+".dbf" )
-   Fim_Run()
-   ferase(aARQUI)
-ELSE
-   MsGStop("Não foi possivel enviar o Erro para Sygecom Informática, Favor verificar sua conexão com a Internet...e envie para o email (suporte@sygecom.com.br) o arquivo que foi gerado: "+aARQUI,"Aviso do Sistema")
-ENDIF
-SAIR2()
-PostQuitMessage( 0 )
-__quit()
-//MyExitProc2()
 RETURN Nil
 
 *****************************

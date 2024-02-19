@@ -198,9 +198,11 @@ ACTIVATE DIALOG oCadInst
 DBCLOSEALL()
 RETURN nil
 
+#IfDef __XHARBOUR__
 Function Focaliza()
 btnOk:setfocus()
 Return .T.
+#endif
 
 *********************
 FUNCTION Grava_Inst()

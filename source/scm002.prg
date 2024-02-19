@@ -117,7 +117,7 @@ if len(alltrim(cAlias_ant)) > 0
       ORDScope(1, NIL)
       DbClearFilter()
    ELSE
-      #ifdef _XHBCOM_
+      #ifdef _XHBSQL_
       Sr_Setfilter("")
       #endif
    ENDIF

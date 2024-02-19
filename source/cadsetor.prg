@@ -69,7 +69,7 @@ STYLE SS_CENTER COLOR x_BLUE
 
 oBrw:Refresh()
 oBrw:SetFocus()
-setfocus(obrw)
+oBrw:setfocus(obrw)
 
 OCadsetor:bActivate := {||oBrw:SetFocus(),oBrw:Refresh()}
 
@@ -118,7 +118,7 @@ oCod:Refresh()
 oCod:disable()
 oBrw:Refresh()
 oBrw:SetFocus()
-setfocus(obrw)
+oBrw:setfocus()
 oNome:setfocus()
 
 RETURN
@@ -161,7 +161,7 @@ oNome:Refresh()
 oCod:Refresh()
 oBrw:Refresh()
 oBrw:SetFocus()
-setfocus(obrw)
+oBrw:setfocus()
 oNome:SetFocus()
 DBGOTOP()
 RETURN

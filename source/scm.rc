@@ -1,3 +1,7 @@
+#include <windows.h>
+
+LANGUAGE LANG_PORTUGUESE,SUBLANG_PORTUGUESE_BRAZILIAN
+
 application_ico  ICON     res\icone.ico
 1 24 "res\WindowsXP.Manifest"
 
@@ -17,31 +21,33 @@ ICON_1 ICON  res\icone.ico
 1014 BITMAP "Res\\email.bmp"
 1015 BITMAP "Res\\construcao.bmp"
 
-1 VERSIONINFO
-FILEVERSION 1,0,0,0
-PRODUCTVERSION 1,0,0,0
-FILEOS 0x4
-FILETYPE 0x1
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 9,0,0,0
+PRODUCTVERSION 9,0,0,0
+FILEFLAGSMASK 0x0
+FILEFLAGS 0x0
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
 {
-BLOCK "StringFileInfo"
-{
- BLOCK "040904b0"
- {
-        VALUE "FileDescription", "SISTEMA GERENCIADOR DE MENSALIDADE\000"
-        VALUE "FileVersion", "1.0076\000"
-        VALUE "InternalName", "Projeto Gerenciador\000"
-        VALUE "LegalCopyright", "Sygecom Informática Ltda\000"
-        VALUE "LegalTrademarks", "SCM / SYGECOM\000"
-        VALUE "OriginalFilename", "SCM.EXE"
-        VALUE "CompanyName", "Sygecom Informática Ltda\000"
-        VALUE "ProductName", "SISTEMA DE CONTROLE DE MENSALIDADES\000"
-        VALUE "ProductVersion", "1.0000\000"
-        VALUE "Comments", "Sistema Desenvolvido Pela Sygecom Informática - sygecom@sygecom.com.br - www.sygecom.com.br - Programador Responsavel.: Leonardo Machado\000"
- }
-}
-
-BLOCK "VarFileInfo"
-{
- VALUE "Translation", 0x0409 0x04B0
-}
+  BLOCK "StringFileInfo"
+  {
+    BLOCK "040904E4"
+    {
+      VALUE "Comments",         "Sistema Desenvolvido Pela Sygecom Informática Ltda - www.sygecom.com.br \0"
+      VALUE "CompanyName",      "Sygecom Informática Ltda - www.sygecom.com.br\0"
+      VALUE "FileDescription",  "SCM(SISTEMA GERENCIADOR DE MENSALIDADE)\0"
+      VALUE "FileVersion",      "1.0000\0"
+      VALUE "InternalName",     "Projeto SCM\0"
+      VALUE "LegalCopyright",   "Sygecom Informática Ltda\0"
+      VALUE "LegalTrademarks",  "SCM / SYGECOM\0"
+      VALUE "OriginalFilename", "SCM.EXE\0"
+      VALUE "ProductName",      "SCM(SISTEMA GERENCIADOR DE MENSALIDADE)\0"
+      VALUE "ProductVersion",   "1.0000\0"
+    }
+  }
+  BLOCK "VarFileInfo"
+  {
+    VALUE "Translation", 0x416, 0x4B0
+  }
 }

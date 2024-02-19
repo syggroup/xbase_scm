@@ -1,0 +1,100 @@
+# ---------------------------------------------------------------------------------
+# Script de construção do SCM
+# ---------------------------------------------------------------------------------
+# Autor  : Leonardo Machado
+# Versão : 7.0
+# Data   : 01/09/2016
+# Harbour : Harbour 3.2.0dev (Rev. 17140) Copyright (c) 1999-2012,
+#      http://harbour-project.org/
+# Compilador: MinGW GNU C 4.6.1 (32-bit)
+# ---------------------------------------------------------------------------------
+# Nome do Executável
+# ---------------------------------------------------------------------------------
+# -o<outname> Diretiva para nome de arquivo de saída
+{x86}-oSCM32
+{x86_64}-oSCM64
+# ---------------------------------------------------------------------------------
+# -d<diretiva>    Diretiva de compilação para ifdef
+#-dHARBOUR
+# ---------------------------------------------------------------------------------
+# Caminhos dos Includes
+# ---------------------------------------------------------------------------------
+# -i<p>|-incpath=<p> paths adicionais para pesquisa de arquivos headers
+-incpath=d:\devel\hwgui_hb\include;
+-incpath=D:\devel\sqlrdd_hb\include;
+# ---------------------------------------------------------------------------------
+# Caminho das Lib
+# ---------------------------------------------------------------------------------
+# -L<libpath>    path adicional para pesquisar por bibliotecas
+-L${HB_PATH}\contrib;
+-LD:\devel\sygecom;
+-LD:\devel\sqlrdd_hb\lib\${hb_plat}/${hb_comp}
+-LD:\devel\hwgui_hb\lib\${hb_plat}/${hb_comp}
+-LD:\devel\pdflib;
+{x86}-LD:\devel\xlsxwriter\lib\x32\mingw
+{x86_64}-LD:\devel\xlsxwriter\lib\x64\mingw64
+# ---------------------------------------------------------------------------------
+-gtgui
+-st
+#-run
+#-workdir=.\obj_harbour\
+# ---------------------------------------------------------------------------------
+# -[no]warn[=lev]  Define o nível de avisos (warnings) do compilador C
+#          <lev> pode ser: max, yes, low, no, def (padrão: yes).
+#-warn=no
+# ---------------------------------------------------------------------------------
+# Outros Parâmetros
+# ---------------------------------------------------------------------------------
+# .\OBJ\ Grava os arquivos .c e .o na subpasta OBJ
+# ---------------------------------------------------------------------------------
+# -workdir=<dir>   Working directory
+#          Diretiva para diretório de trabalho da compilação.
+#          (default: .hbmk/plat/comp in incremental mode, OS temp
+#          directory otherwise).
+#-workdir=/obj/${hb_plat}/${hb_comp}
+#-workdir=.\obj\
+{x86}-workdir=.\obj32\
+{x86_64}-workdir=.\obj64\
+#Comando abaixo serve para reduzir o tamanho do .exe, por que não aplica debub em .C
+-strip
+#Esse comando abaixo evita aparecer erros em function C que está no fastreport.prg
+#-cflag=-Wno-cast-function-type
+#-cflag=-static-libgcc
+  
+# Multi Processador, para compilar varios .PRG ao mesmo tempo
+#-jobs=4
+#-w3 -es2
+-trace
+-inc
+-run
+
+source\*.prg
+source\scm.rc
+
+hbwin.hbc
+hbct.hbc
+hbtip.hbc
+hbxpp.hbc
+hbziparc.hbc
+hbfimage.hbc 
+hbgd.hbc     
+hbssl.hbc    
+hbpgsql.hbc  
+hbcurl.hbc   
+sddodbc.hbc
+
+#-lhbdebug
+{x86}-lpdflib_hb32
+{x86_64}-lpdflib_hb64
+-lfreeimage
+-lhbssl
+-lhbssls
+-lxhb
+-lsqlrddpp
+-lhwgui
+-lhbxml
+-lhwg_contrib
+-lprocmisc
+#{x86}-lsygecom32
+#{x86_64}-lsygecom64
+-lhbxlsxwriter

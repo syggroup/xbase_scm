@@ -1,53 +1,10 @@
 #include "scm.ch"
 
-******************************************************************************************************************************************
-FUNCTION MONTA_DBF_EMAIL(cFILE, cServerIP, vPORTSMTP, cFrom, aQuem, aCC, cMsg, cSUBJECT, cUSER, cPASS, aFiles, aBCC, vEMAIL_CONF,vMOSTRA )
-******************************************************************************************************************************************
-LOCAL vARQ:={}
-aadd( vARQ, {"SERVER",     "C",190 ,0} )
-aadd( vARQ, {"PORTA",      "N", 10 ,0} )
-aadd( vARQ, {"FROM",       "C",190 ,0} )
-aadd( vARQ, {"ATO",        "C",190 ,0} )
-aadd( vARQ, {"ACC",        "C",190 ,0} )
-aadd( vARQ, {"ABCC",       "C",190 ,0} )
-aadd( vARQ, {"MSG",        "M", 10 ,0} )
-aadd( vARQ, {"SUBJECT",    "M", 10 ,0} )
-aadd( vARQ, {"FILES",      "C",190 ,0} )
-aadd( vARQ, {"USER",       "C",190 ,0} )
-aadd( vARQ, {"PASS",       "C", 90 ,0} )
-aadd( vARQ, {"USUARIO",    "C", 30 ,0} )
-aadd( vARQ, {"CONF",       "L",  1 ,0} )
-aadd( vARQ, {"MOSTRA",     "L",  1 ,0} )
-DBcreate(cFILE, vARQ, eRDD_DRIVER)
-
-IF Use_Arq(cFILE,"EMAIL",.F.,.F.,.T.,.T.)=.F.
-   RETURN NIL
-ENDIF
-
-SELE EMAIL
-AppRede()
-Replace SERVER WITH cServerIP,;
-PORTA          WITH vPORTSMTP,;
-FROM           WITH cFrom,;
-ATO            WITH aQuem,;
-ACC            WITH aCC,;
-ABCC           WITH aBCC,;
-MSG            WITH ALLTRIM(cMsg),;
-SUBJECT        WITH cSUBJECT,;
-USER           WITH cUSER,;
-PASS           WITH cPass,;
-USUARIO        WITH WUSUARIO,;
-CONF           WITH vEMAIL_CONF,;
-MOSTRA         WITH vMOSTRA
-IF LEN(aFiles) > 0
-   For x=1 TO LEN(aFiles)
-      AppRede()
-      REPLACE FILES WITH aFiles[x]
-   Next
-ENDIF
-SELE EMAIL
-USE
-Return
+#IfnDef __XHARBOUR__
+   #require "hbssl"
+   #require "hbtip"
+   REQUEST __HBEXTERN__HBSSL__
+#endif
 
 *****************
 Function VAIEMAIL
@@ -223,7 +180,7 @@ GERAFILE()
 RenameFile( cARQ, cFILE+".TXT" )
 cARQ3=cFILE+".TXT"
 
-Envia_email(cARQ3,wSubject,wQuem,wMsg,wServerIp,wFrom,wUser,wPass)
+//Envia_email(cARQ3,wSubject,wQuem,wMsg,wServerIp,wFrom,wUser,wPass)
 
 RETURN
 
@@ -497,7 +454,7 @@ Return
 Function Verefica_Uso_Exclusivo(vZAP) // SE vZAP FOR .T. ELE APAGA OS registros
 Local vCONT := 0
 
-#ifdef _XHBCOM_
+#ifdef _XHBSQL_
 IF eTipo_banco="SQL" .and. vZAP=.F.
    cSQL := "select * from pg_stat_database where datname = '" +eDATABASE +"'"
    oSql := SR_GetConnection()
@@ -837,10 +794,10 @@ return nil
 ************FIM DAS FUNÇÕES PARA BACK-UP E RETORNO DE BACK-UP*******************
 ********************************************************************************
 
+#IfDef __XHARBOUR__
 Function ErroReg()
 MsgINFO("Não foi possível localizar o registro, Registro não cadastrado ou excluido, Tente novamente.","Aviso do Sistema")
 Return(Nil)
-
 
 Function Limpa()  // função para limpar a memoria do micro
 HB_GCALL()
@@ -854,6 +811,7 @@ oShell := CreateObject( "WScript.Shell" )
 RET := oShell:Run( "%comspec% /c " + cComando, 0, .T. )
 oShell := NIL
 return iif( RET = 0, .T., .F. )
+#endif
 
 ********************************************************************************
 ***************INICIO DO TESTE DE CONEXÃO DE INTERNET***************************
@@ -1284,17 +1242,42 @@ RETURN NIL
 ***********************************************************************************************************
 Function Envia_email(aFiles,cSubject,aQuem,cMsg,cServerIp,cFrom,cUser,cPass,vPORTSMTP,aCC,aBCC,vEMAIL_CONF)
 ***********************************************************************************************************
-LOCAL nBytes, nChild, nError, nStdIN, nStdOUT, nStdERR
+LOCAL nBytes, nChild, nError, nStdIN, nStdOUT, nStdERR, lRet
 LOCAL oOutLook,oMailItem,oRecip,oAttach
 PRIVATE oDlgHabla:=NIL
 
 MsgRun("Conectando ao Servidor e Enviando o Email,Aguarde !!!",)
 IF inetestaconectada()=.T.
    HW_Atualiza_Dialogo("Aguarde...Enviando e-mail..." )
-   GeraFile()
-   Monta_DBF_Email(cFILE, cServerIP, vPORTSMTP, cFrom, aQuem, aCC, cMsg, cSUBJECT, cUSER, cPASS, aFiles, aBCC, vEMAIL_CONF,.T.)
-
-   MyRun2( "envia_email " + cFILE+".dbf" )
+#IfnDef __XHARBOUR__   
+   lRet := tip_MailSend( ;
+         cServerIp, ;
+         vPORTSMTP,; //iif( lSTARTTLS, 587, 465 ), ;
+         cFrom, ;
+         cUser, ;
+         xCC /* CC */, ;
+         {} /* BCC */, ;
+         cMsg , ;
+         cSubJect , ;
+         aFiles /* attachment */, ;
+         cFrom, ;
+         cPass, ;
+         "", ;
+         NIL /* nPriority */, ;
+         NIL /* lRead */, ;
+         .T. /* lTrace */, ;
+         .F., /*lPopAuth */ ;
+         NIL /* lNoAuth */, ;
+         NIL /* nTimeOut */, ;
+         NIL /* cReplyTo */, ;
+         vPORTSMTP == 465) //! lSTARTTLS )
+   
+   If lRet
+      hwg_Msginfo("Email enviado."+hb_eol()+"Assunto: "+cSubject+hb_eol()+"Endereço: "+cTo)
+   Else
+      hwg_Msgexclamation("Falha enviando email.")
+   EndIf
+#endif 
    Fim_Run()
 else
    Fim_Run()
@@ -1302,6 +1285,8 @@ else
 Endif
 RETURN nil
 
+
+#IfDef __XHARBOUR__
 ***********************
 FUNCTION MyRun2( cRun )
 ***********************
@@ -1327,6 +1312,7 @@ FClose( hProc )
 FClose( hIn )
 FClose( hOut )
 Return(.T.)
+#endif
 
 *****************************
 Function Gera_Excel_txt(cArq)
@@ -1445,6 +1431,7 @@ else
 ENDIF
 RETURN
 
+#IfDef __XHARBOUR__
 ******************************
 Function Abre_Manual(cArq,IMP)
 ******************************
@@ -1646,6 +1633,7 @@ fclose( arq_txt      )
 Fim_Run()
 Abre_arquivo( cArqRtf )
 Return( .T. )
+#endif
 
 *******************************
 Function GERA_PDF(cARQ, vABRE )
@@ -1864,6 +1852,7 @@ IF CCPF !=PARTEA1+PARTEA2+PARTEA3+PARTEA4
 ENDIF
 RETURN .T.
 
+#IfDef __XHARBOUR__
 Function GERAFILE
 Public cFILE := GETENV("temp")+ "\sy_temp\TEMP"+ ALLTRIM( STR( HB_RandomInt(99999) ))
 RETURN cFILE
@@ -1881,6 +1870,7 @@ FOR I = 1 TO LEN(aDir)
    ferase( vTEMP_L+"\"+aDir[I,1] )
 NEXT
 RETURN
+#endif
 
 ********************************************************************************
 ***************INCIO DA FUNCAO DE ABRIR ARQUIVOS********************************
@@ -1891,6 +1881,7 @@ FUNCTION Abre_arquivo( cHelpFile )
    nRet := _OpenHelpFile( cPath, cHelpFile )
 RETURN nRet
 
+#IfDef __XHARBOUR__
 #pragma BEGINDUMP
 
    #pragma comment( lib, "shell32.lib" )
@@ -2003,10 +1994,12 @@ aDir  := Directory( vArq )
 aRet  := Transform(DtoC(aDir[1,3]),"@d")
 aRet2 := aDir[1,4]
 Return( aRet + " - " + aRet2 )
+#endif
 
 Function GETFILEVERSIONINFO
 Return(eVERSAO)
 
+#IfDef __XHARBOUR__
 *********************
 Function Focaliza_App
 *********************
@@ -2018,6 +2011,7 @@ Return Nil
 ********************************************************************************
 ***********INICIO DA ROTINA QUE VEREFICA SE O EXE JA ESTA ABERTO****************
 ********************************************************************************
+
 #pragma BEGINDUMP
 
 #include "hbapi.h"
@@ -2069,6 +2063,7 @@ HB_FUNC( SY_SWITCHTOTHISWINDOW )
 }
 
 #pragma ENDDUMP
+#endif
 
 ********************************************************************************
 ***********FIM    DA ROTINA QUE VEREFICA SE O EXE JA ESTA ABERTO****************
@@ -2189,6 +2184,4 @@ STYLE WS_TABSTOP
 ACTIVATE DIALOG oFrm2
 
 Return(IIF(ALLTRIM(UPPER(wSENHA))=ALLTRIM(UPPER(vSEN)),.T.,.F.))
-
-
 

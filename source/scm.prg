@@ -384,7 +384,7 @@ dbcloseall()
 IF MSGNOYES("Deseja Realmente Sair do Programa ?","Aviso do Sistema")
    LIMPATEMP()
    IF eTipo_banco="SQL"
-      #ifdef _XHBCOM_
+      #ifdef _XHBSQL_
           SR_End()
       #endif
    ENDIF
@@ -401,7 +401,7 @@ FUNCTION SAIR2
 dbcloseall()
 LIMPATEMP()
 IF eTipo_banco="SQL"
-   #ifdef _XHBCOM_
+   #ifdef _XHBSQL_
    SR_End()
    #endif
 ENDIF
@@ -574,6 +574,7 @@ FUNCTION RunApplet_imp( cApplet ) //CONFIGURA IMPRESSORA NO WINDOWS
 RETURN Nil
 ********************************************************************************
 
-
+FUNCTION SYG_TRANSLATOR(P1,P2)
+RETURN(P1)   
 
 

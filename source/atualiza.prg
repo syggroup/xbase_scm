@@ -13,7 +13,7 @@ IF IsDirectory( GETENV("temp") + "\sy_temp" )=.F.
    Makedir( GETENV("temp") + "\sy_temp")
 ENDIF
 
-IF !My_File("envia_email.exe") .or. !My_File("ie32.dll") .or. !My_File("blat.dll")
+IF !My_File("ie32.dll") .or. !My_File("blat.dll")
    IF MsgYesNo("Estão Faltando Arquivos para Iniciar o Sistema, Deseja Baixar as Dependencias Agora ?","Aviso do Sistema")
       DBCLOSEALL()
       fclose(janela2)

@@ -1,7 +1,7 @@
 CINI =
 C_OUTPUTFOLDER =
 DEFFILE =
-INCLUDEFOLDERS = D:\Devel\hwgui\include;D:\devel\letodb\include;
+INCLUDEFOLDERS = D:\Devel\hwgui\include
 LAUTORUN =
 LDEBUG = .F.
 LGUI = .T.
@@ -13,7 +13,7 @@ LPRG_DEBUG = .F.
 LUSEDLL = .F.
 MAPFILE =
 MYC_FLAGS =
-MYDEFINES = __LETO__
+MYDEFINES = 
 MYLINK_FLAGS = 
 MYPRG_FLAGS =
 MYRC_FLAGS =
@@ -26,17 +26,17 @@ SLY_OUTPUTFOLDER =
 STARTIN =
 TARGETFOLDER =
 
-[SCM.prg]
-MYC_FLAGS = 
-MYDEFINES = 
-MYPRG_FLAGS = 
-
-[*.PRG]
+[source\scm.prg]
 MYC_FLAGS =
 MYDEFINES =
 MYPRG_FLAGS =
 
-[SCM.rc]
+[source\*.prg]
+MYC_FLAGS =
+MYDEFINES =
+MYPRG_FLAGS =
+
+[source\scm.rc]
 MYDEFINES = 
 MYRC_FLAGS = 
 
@@ -62,6 +62,3 @@ MYRC_FLAGS =
 
 [D:\Devel\xharbour_bcc7\lib\png.lib]
 
-[D:\devel\letodb\lib\rddleto.lib]
-
-[D:\devel\letodb\lib\leto.lib]
