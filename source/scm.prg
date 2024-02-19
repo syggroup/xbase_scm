@@ -110,7 +110,7 @@ SET STRICTREAD ON
 
 IF SESSAO=Nil
    IF ( hWnd := Hwg_FindWindow( oTelaPrincipal,"SCM - SISTEMA DE CONTROLE DE MENSALIDADES Vs. " + GETFILEVERSIONINFO() ) ) != 0
-      Focaliza_App()
+      Focaliza_App(oTelaPrincipal)
       Return
    ENDIF
 ENDIF

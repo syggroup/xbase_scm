@@ -63,7 +63,7 @@ do while .t.
          IF vRESP
             loop
          ELSE
-            Focaliza_App()
+            Focaliza_App(oTelaPrincipal)
             Return .f.
          endif
       END

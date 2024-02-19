@@ -84,6 +84,16 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "../../devel/hwgui_hb/source/syg/syg_hwgui.prg",
+			"bookmarks": [
+				{
+					"line": 1253,
+					"column": 36,
+					"label": ""
+				}
+			]
 		}
 	]
 }

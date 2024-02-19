@@ -2086,8 +2086,6 @@ ACTIVATE DIALOG oAlert NOMODAL
 
 oAlert:close()
 
-Focaliza_App()
-
 RETURN Nil
 **************************
 STATIC FUNCTION visualizar

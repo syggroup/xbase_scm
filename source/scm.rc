@@ -3,11 +3,14 @@
 LANGUAGE LANG_PORTUGUESE,SUBLANG_PORTUGUESE_BRAZILIAN
 
 application_ico  ICON     res\icone.ico
-1 24 "res\WindowsXP.Manifest"
+#ifndef __64__
+1    24     "d:\\devel\\res\\WindowsXP.Manifest"
+#else
+1    24     "d:\\devel\\res\\WindowsXP.Manifest64"
+#endif
 
 ICON_1 ICON  res\icone.ico
 
-1003 BITMAP "Res\\\selo.bmp"
 1004 ICON   "Res\\icone.ico"
 1005 BITMAP "Res\\sair.bmp"
 1006 BITMAP "Res\\ok.bmp"

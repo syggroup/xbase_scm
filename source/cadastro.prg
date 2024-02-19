@@ -169,7 +169,7 @@ MAXLENGTH 10;
 STYLE WS_TABSTOP;
 TOOLTIP "Informe o Numero da Agencia"
 
-@ 490,340  GET Occ VAR Wcc                 PICTURE "" VALID {||Focaliza()}      SIZE 150,22;
+@ 490,340  GET Occ VAR Wcc                 PICTURE ""   SIZE 150,22;
 MAXLENGTH 10;
 STYLE WS_TABSTOP;
 TOOLTIP "Informe o Numero da Conta Corrente"
@@ -198,11 +198,9 @@ ACTIVATE DIALOG oCadInst
 DBCLOSEALL()
 RETURN nil
 
-#IfDef __XHARBOUR__
 Function Focaliza()
 btnOk:setfocus()
 Return .T.
-#endif
 
 *********************
 FUNCTION Grava_Inst()
