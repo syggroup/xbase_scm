@@ -1846,7 +1846,6 @@ IF CCPF !=PARTEA1+PARTEA2+PARTEA3+PARTEA4
 ENDIF
 RETURN .T.
 
-#IfDef __XHARBOUR__
 Function GERAFILE
 Public cFILE := GETENV("temp")+ "\sy_temp\TEMP"+ ALLTRIM( STR( HB_RandomInt(99999) ))
 RETURN cFILE
@@ -1864,7 +1863,6 @@ FOR I = 1 TO LEN(aDir)
    ferase( vTEMP_L+"\"+aDir[I,1] )
 NEXT
 RETURN
-#endif
 
 ********************************************************************************
 ***************INCIO DA FUNCAO DE ABRIR ARQUIVOS********************************
@@ -1875,7 +1873,6 @@ FUNCTION Abre_arquivo( cHelpFile )
    nRet := _OpenHelpFile( cPath, cHelpFile )
 RETURN nRet
 
-#IfDef __XHARBOUR__
 #pragma BEGINDUMP
 
    #pragma comment( lib, "shell32.lib" )
@@ -1988,12 +1985,10 @@ aDir  := Directory( vArq )
 aRet  := Transform(DtoC(aDir[1,3]),"@d")
 aRet2 := aDir[1,4]
 Return( aRet + " - " + aRet2 )
-#endif
 
 Function GETFILEVERSIONINFO
 Return(eVERSAO)
 
-#IfDef __XHARBOUR__
 *********************
 Function Focaliza_App
 *********************
@@ -2057,7 +2052,7 @@ HB_FUNC( SY_SWITCHTOTHISWINDOW )
 }
 
 #pragma ENDDUMP
-#endif
+
 
 ********************************************************************************
 ***********FIM    DA ROTINA QUE VEREFICA SE O EXE JA ESTA ABERTO****************
@@ -2176,4 +2171,151 @@ STYLE WS_TABSTOP
 ACTIVATE DIALOG oFrm2
 
 Return(IIF(ALLTRIM(UPPER(wSENHA))=ALLTRIM(UPPER(vSEN)),.T.,.F.))
+
+FUNCTION ERROREG
+ShowMsg("Não foi possível localizar o registro, " +;
+        "Registro não cadastrado ou excluido, "   +;
+        "Tente novamente.")
+return nil
+
+****************************************
+FUNCTION ABRE_WORD( cArquivo, nColunas )
+****************************************
+local cArqRtf, arq, arq_txt, cHandle, nA, oWord, cText
+local cCaractere  := space( 01 )
+local cLinha      := space( 01 )
+local lf          := chr( 13 ) + chr( 10 )
+
+sygDialogo("Aguarde Gerando Documento de Word...")
+
+TRY                                                  
+   oWord := GetActiveObject( "Word.Application" )    
+CATCH                                                
+   TRY                                               
+      oWord := CreateObject( "Word.Application" )    
+   CATCH                                             
+      ABRE_TEXTO_OPENSOURCE(cArquivo)                
+      sygDialogo()                                   
+      RETURN Nil                                     
+   END                                               
+END                                                  
+
+if ncolunas=Nil
+   ncolunas=136
+endif
+cArqRtf  := lower( left( cArquivo, len( cArquivo ) - 4 ) + ".doc" )
+arq      := fcreate( cArqRtf, 1 )
+cHandle  := "{\rtf1\ansi\ansicpg1252\deff0\deflang1046{\fonttbl{\f0\fmodern\fprq1\fcharset0 Courier New;}{\f1\fswiss\fcharset0 Arial;}}" + lf
+cHandle  += "\margl284\margr505\margt505\margb505" + lf
+
+if nColunas == 136
+   cHandle  += "{\*\generator Msftedit 5.41.15.1503;}\viewkind4\uc1\pard\f0\fs14 "
+else
+   cHandle  += "{\*\generator Msftedit 5.41.15.1503;}\viewkind4\uc1\pard\f0\fs23 "
+endif
+fwrite( arq, cHandle )
+
+cText := memoread( cArquivo )
+for nA := 1 to mlcount( cText, 150 )
+  cCaractere := memoline( cText, 150, nA, 1, .F. )
+  cCaractere  += "\par" + lf
+
+  IF getkeystate(VK_ESCAPE,.F.,.T.) < 0
+     cHandle  := "}"
+     fwrite( arq, cHandle )
+     fclose( arq          )
+     fclose( arq_txt      )
+     sygDialogo()
+     RETURN .F.
+  ENDIF
+
+  fwrite( arq, cCaractere )
+NEXT
+cHandle  := "}"
+fwrite( arq, cHandle )
+fclose( arq          )
+fclose( arq_txt      )
+
+sygDialogo()
+IF FILE(cArqRtf)
+   Abre_arquivo( cArqRtf )
+ELSE
+   MsgStop("Erro ao Abrir o Arquivo WORD, Favor verificar")
+ENDIF
+Return( .T. )
+
+/*
+EXEMPLO DE USO:
+SYG_GENERATEGUID(.T.) // RETORNA TUDO EM MAIUSCULO
+SYG_GENERATEGUID(.F.) // RETORNA TUDO EM MINUSCULO
+*/
+
+#pragma BEGINDUMP
+
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
+#include "hbapi.h"
+
+HB_FUNC ( SYG_GENERATEGUID )
+{
+    GUID guid;
+    char guidString[37];
+    char guidStringFormat[68];
+    
+    if((int)hb_parl(1) == 1)
+        strcpy(guidStringFormat, "%08lX-%04hX-%04hX-%02hhX%02hhX-%02hhX%02hhX%02hhX%02hhX%02hhX%02hhX");
+    else
+        strcpy(guidStringFormat, "%08lx-%04hx-%04hx-%02hhx%02hhx-%02hhx%02hhx%02hhx%02hhx%02hhx%02hhx");
+    
+    CoCreateGuid(&guid);
+    
+    sprintf(guidString, guidStringFormat,
+      guid.Data1, guid.Data2, guid.Data3,
+      guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3],
+      guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
+      
+    hb_retc(guidString);    
+}
+
+#pragma ENDDUMP
+
+****************************************
+FUNCTION ABRE_TEXTO_OPENSOURCE(cArquivo)
+****************************************
+local oServiceManager,oDesktop,oDocument,oCursor, cCaractere, nA, cText
+
+TRY
+   oServiceManager := TOleAuto():New("com.sun.star.ServiceManager")
+   oDesktop := oServiceManager:createInstance("com.sun.star.frame.Desktop")
+CATCH
+   FIM_RUN()
+   MsgStop("Não foi Possivel Achar o Word ou OpenOffice Instalado")
+   RETURN Nil
+END
+IF oDesktop = NIL
+   FIM_RUN()
+   MsgStop("Não foi Possivel Achar o Word ou OpenOffice Instalado")
+   RETURN Nil
+ENDIF
+oDocument := oDesktop:loadComponentFromURL("private:factory/swriter","_blank", 0, {})
+
+oCursor := oDocument:Text:CreateTextCursor()
+oCursor:CharFontName:="Courier"
+oCursor:CharHeight:=6
+oCursor:CharWeight:=50
+
+cText := memoread( cArquivo )
+for nA := 1 to mlcount( cText, 150 )
+  cCaractere := memoline( cText, 150, nA, 1, .F. )
+  oDocument:Text:InsertString(oCursor, cCaractere+CHR(13) , .F.)
+
+  IF getkeystate(VK_ESCAPE,.F.,.T.) < 0
+     FIM_RUN()
+     RETURN .F.
+  ENDIF
+NEXT
+
+Fim_Run()
+Return .T.
 

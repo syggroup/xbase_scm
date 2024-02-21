@@ -26,13 +26,8 @@
 # Caminho das Lib
 # ---------------------------------------------------------------------------------
 # -L<libpath>    path adicional para pesquisar por bibliotecas
--L${HB_PATH}\contrib;
--LD:\devel\sygecom;
 -LD:\devel\sqlrdd_hb\lib\${hb_plat}/${hb_comp}
 -LD:\devel\hwgui_hb\lib\${hb_plat}/${hb_comp}
--LD:\devel\pdflib;
-{x86}-LD:\devel\xlsxwriter\lib\x32\mingw
-{x86_64}-LD:\devel\xlsxwriter\lib\x64\mingw64
 # ---------------------------------------------------------------------------------
 -gtgui
 -st
@@ -82,19 +77,13 @@ hbssl.hbc
 hbpgsql.hbc  
 hbcurl.hbc   
 sddodbc.hbc
+xhb.hbc
 
-#-lhbdebug
-{x86}-lpdflib_hb32
-{x86_64}-lpdflib_hb64
 -lfreeimage
 -lhbssl
 -lhbssls
--lxhb
 -lsqlrddpp
 -lhwgui
 -lhbxml
 -lhwg_contrib
 -lprocmisc
-#{x86}-lsygecom32
-#{x86_64}-lsygecom64
--lhbxlsxwriter
